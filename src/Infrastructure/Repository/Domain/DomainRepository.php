@@ -35,6 +35,18 @@ final readonly class DomainRepository extends PDOManager implements DomainReposi
         return $domainResults;
     }
 
+    public function create(Domain $domain): void 
+    {
+        $query = "INSERT INTO domain (name, code) VALUES (:name, :code)";
+
+        $parameters = [
+            "name" => $domain->name(),
+            "code" => $domain->code()
+        ];
+
+        $this->execute($query, $parameters);
+    }
+
     private function primitiveToDomain(?array $primitive): ?Domain
     {
         if ($primitive === null) {

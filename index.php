@@ -18,6 +18,7 @@ spl_autoload_register(
             "src/Service",
             "src/Entity",
             "src/Infrastructure",
+            "src/Utils"
         ]);
     }
 );
@@ -27,6 +28,8 @@ $router = startRouter();
 
 // Obtenemos el URL de donde esta entrando el usuario
 $url = $_SERVER["REQUEST_URI"];
+
+$url = explode("?", $url)[0];
 
 try {
     // A partir del URL y del metodo, el Routeador decide por que ruta entrar

@@ -11,4 +11,6 @@ interface DomainRepositoryInterface {
 
     /** @return Domain[] */
     public function search(): array;
+
+    public function create(Domain $domain): void;
 }

@@ -20,7 +20,13 @@ final readonly class DomainRoutes {
         "url" => "/domains",
         "controller" => "Domain/DomainsGetController.php",
         "method" => "GET"
-      ]
+      ],
+      [
+        "name" => "domain_create",
+        "url" => "/domains",
+        "controller" => "Domain/DomainPostController.php",
+        "method" => "POST"
+      ],
     ];
   }
 }
