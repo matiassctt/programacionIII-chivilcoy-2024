@@ -12,7 +12,6 @@ final readonly class ArticlesGetController {
     public function start(): void
     {
         $articles = $this->service->search();
-
         echo json_encode($this->toResponse($articles));
     }
 

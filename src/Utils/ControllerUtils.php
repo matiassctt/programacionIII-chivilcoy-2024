@@ -23,6 +23,11 @@ final readonly class ControllerUtils {
     private static function getPostData(): array
     {
         $json = file_get_contents('php://input');
+        
+        if (empty($json)) {
+            return [];
+        }
+        
         $postData = json_decode($json, true);
         return $postData;
     }
