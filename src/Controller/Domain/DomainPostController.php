@@ -10,10 +10,11 @@ final readonly class DomainPostController {
         $this->service = new DomainCreatorService();
     }
 
-    public function start(): void 
+    public function start(): void
     {
         $name = ControllerUtils::getPost("name");
         $code = ControllerUtils::getPost("code");
+
         $this->service->create($name, $code);
     }
 }

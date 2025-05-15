@@ -320,3 +320,5 @@
 172.18.0.1 - - [06/May/2025:22:25:30 +0000] "GET /categories/2 HTTP/1.1" 200 283 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
 172.18.0.1 - - [06/May/2025:22:25:35 +0000] "GET /categories HTTP/1.1" 200 571 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
 172.18.0.1 - - [06/May/2025:22:25:54 +0000] "GET /categories HTTP/1.1" 200 358 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+172.20.0.1 - - [15/May/2025:13:20:05 +0000] "GET / HTTP/1.1" 404 240 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+172.20.0.1 - - [15/May/2025:13:20:06 +0000] "GET /favicon.ico HTTP/1.1" 404 240 "http://localhost:9091/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"

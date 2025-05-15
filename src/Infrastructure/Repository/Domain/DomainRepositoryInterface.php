@@ -12,5 +12,7 @@ interface DomainRepositoryInterface {
     /** @return Domain[] */
     public function search(): array;
 
-    public function create(Domain $domain): void;
+    public function insert(Domain $domain): void;
+
+    public function update(Domain $domain): void;
 }

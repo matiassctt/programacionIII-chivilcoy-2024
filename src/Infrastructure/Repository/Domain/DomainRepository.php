@@ -11,7 +11,7 @@ final readonly class DomainRepository extends PDOManager implements DomainReposi
 
     public function find(int $id): ?Domain 
     {
-        $query = "SELECT * FROM domain WHERE id = :id";
+        $query = "SELECT * FROM domain WHERE id = :id AND deleted = 0";
 
         $parameters = [
             "id" => $id
@@ -24,7 +24,7 @@ final readonly class DomainRepository extends PDOManager implements DomainReposi
 
     public function search(): array
     {
-        $query = "SELECT * FROM domain";
+        $query = "SELECT * FROM domain WHERE deleted = 0";
         $results = $this->execute($query);
 
         $domainResults = [];
@@ -35,13 +35,37 @@ final readonly class DomainRepository extends PDOManager implements DomainReposi
         return $domainResults;
     }
 
-    public function create(Domain $domain): void 
+    public function insert(Domain $domain): void
     {
-        $query = "INSERT INTO domain (name, code) VALUES (:name, :code)";
+        $query = "INSERT INTO domain (name, code, deleted) VALUES (:name, :code, :deleted) ";
 
         $parameters = [
             "name" => $domain->name(),
-            "code" => $domain->code()
+            "code" => $domain->code(),
+            "deleted" => $domain->isDeleted()
+        ];
+
+        $this->execute($query, $parameters);
+    }
+
+    public function update(Domain $domain): void
+    {
+        $query = <<<UPDATE_QUERY
+                        UPDATE
+                            domain
+                        SET
+                            name = :name,
+                            code = :code,
+                            deleted = :deleted
+                        WHERE
+                            id = :id
+                    UPDATE_QUERY;
+
+        $parameters = [
+            "name" => $domain->name(),
+            "code" => $domain->code(),
+            "deleted" => $domain->isDeleted(),
+            "id" => $domain->id()
         ];
 
         $this->execute($query, $parameters);
@@ -56,7 +80,8 @@ final readonly class DomainRepository extends PDOManager implements DomainReposi
         return new Domain(
             $primitive["id"],
             $primitive["name"],
-            $primitive["code"]
+            $primitive["code"],
+            (bool) $primitive["deleted"]
         );
     }
 }

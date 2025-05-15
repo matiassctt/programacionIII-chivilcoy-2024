@@ -2,21 +2,33 @@
 
 namespace Src\Entity\Domain;
 
-final readonly class Domain {
+final class Domain {
 
     public function __construct(
-        private ?int $id,
+        private readonly ?int $id,
         private string $name,
-        private string $code
+        private string $code,
+        private bool $deleted
     ) {
     }
 
     public static function create(string $name, string $code): self
     {
-        return new self(null, $name, $code);
+        return new self(null, $name, $code, false);
     }
 
-    public function id(): int
+    public function modify(string $name, string $code): void
+    {
+        $this->name = $name;
+        $this->code = $code;
+    }
+
+    public function delete(): void
+    {
+        $this->deleted = true;
+    }
+
+    public function id(): ?int
     {
         return $this->id;
     }
@@ -29,5 +41,10 @@ final readonly class Domain {
     public function code(): string
     {
         return $this->code;
+    }
+
+    public function isDeleted(): int
+    {
+        return $this->deleted ? 1 : 0;
     }
 }
