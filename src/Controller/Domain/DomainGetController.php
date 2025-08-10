@@ -1,11 +1,13 @@
 <?php 
 
+use Src\Middleware\AuthMiddleware;
 use Src\Service\Domain\DomainFinderService;
 
-final readonly class DomainGetController {
+final readonly class DomainGetController extends AuthMiddleware {
     private DomainFinderService $service;
 
     public function __construct() {
+        parent::__construct();
         $this->service = new DomainFinderService();
     }
 
