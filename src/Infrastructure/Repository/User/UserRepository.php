@@ -12,16 +12,21 @@ final readonly class UserRepository extends PDOManager implements UserRepository
 
     public function findByEmailAndPassword(string $email, string $password): ?User 
     {
-        $query = "SELECT * FROM users WHERE email = :email AND password = :password";
+        $query = "SELECT * FROM users WHERE email = :email";
 
         $parameters = [
             "email" => $email,
-            "password" => $password,
         ];
 
         $result = $this->execute($query, $parameters);
         
-        return $this->primitiveToUser($result[0] ?? null);
+        $user = $this->primitiveToUser($result[0] ?? null); 
+
+        if (password_verify($password, $user->password())) {
+            return $user;
+        }
+        
+        return null;
     }
 
     public function findByToken(string $token): ?User 
@@ -36,6 +41,26 @@ final readonly class UserRepository extends PDOManager implements UserRepository
         $result = $this->execute($query, $parameters);
         
         return $this->primitiveToUser($result[0] ?? null);
+    }
+
+    public function insert(User $user): void
+    {
+        $query = <<<INSERT_QUERY
+                    INSERT INTO
+                        users
+                    (name, email, password, token)
+                        VALUES
+                    (:name, :email, :password, :token)
+                INSERT_QUERY;
+            
+        $parameters = [
+            "name" => $user->name(),
+            "email" => $user->email(),
+            "password" => $user->password(),
+            "token" => "",
+        ];
+
+        $this->execute($query, $parameters);
     }
 
     public function update(User $user): void

@@ -9,6 +9,12 @@ final readonly class UserRoutes {
         "controller" => "User/UserLoginController.php",
         "method" => "POST"
       ],
+      [
+        "name"=>"user_create",
+        "url"=>"/users",
+        "controller"=>"User/UserPostController.php",
+        "method"=>"POST"
+      ]
     ];
   }
 }

@@ -7,16 +7,21 @@ use DateTime;
 final class User {
 
     public function __construct(
-        private readonly int $id,
+        private readonly ?int $id,
         private string $name,
         private string $email,
         private string $password,
-        private string $token,
-        private DateTime $tokenAuthDate
+        private ?string $token,
+        private ?DateTime $tokenAuthDate
     ) {
     }
 
-    public function id(): int
+    public static function create(string $name, string $email, string $password): self
+    {
+        return new self(null, $name, $email, password_hash($password, PASSWORD_BCRYPT), null, null);
+    }
+
+    public function id(): ?int
     {
         return $this->id;
     }
@@ -36,12 +41,12 @@ final class User {
         return $this->password;
     }
 
-    public function token(): string
+    public function token(): ?string
     {
         return $this->token;
     }
 
-    public function tokenAuthDate(): DateTime
+    public function tokenAuthDate(): ?DateTime
     {
         return $this->tokenAuthDate;
     }
