@@ -31,4 +31,22 @@ final readonly class ControllerUtils {
         $postData = json_decode($json, true);
         return $postData;
     }
+
+    public static function getFile(string $name, bool $required = true, mixed $default = null): mixed 
+    {
+        $fileData = self::getFileData();
+        
+        $value = $fileData[$name] ?? null;
+
+        if ($required && $value === null) {
+            throw new Exception(sprintf("Parameter %s not found", $name));
+        } 
+
+        return $value ?? $default;
+    }
+
+    private static function getFileData(): array
+    {
+        return $_FILES;
+    }
 }
