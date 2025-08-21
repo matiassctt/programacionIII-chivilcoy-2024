@@ -22,6 +22,10 @@ final readonly class UserRepository extends PDOManager implements UserRepository
         
         $user = $this->primitiveToUser($result[0] ?? null); 
 
+        if (empty($user)) {
+            return null;
+        }
+
         if (password_verify($password, $user->password())) {
             return $user;
         }
