@@ -10,7 +10,7 @@ use Src\Entity\User\User;
 
 final readonly class UserRepository extends PDOManager implements UserRepositoryInterface {
 
-    public function findByEmailAndPassword(string $email, string $password): ?User 
+    public function findByEmail(string $email): ?User 
     {
         $query = "SELECT * FROM users WHERE email = :email";
 
@@ -21,6 +21,17 @@ final readonly class UserRepository extends PDOManager implements UserRepository
         $result = $this->execute($query, $parameters);
         
         $user = $this->primitiveToUser($result[0] ?? null); 
+
+        if (empty($user)) {
+            return null;
+        }
+
+        return $user;
+    }
+
+    public function findByEmailAndPassword(string $email, string $password): ?User 
+    {
+        $user = $this->findByEmail($email);
 
         if (empty($user)) {
             return null;
