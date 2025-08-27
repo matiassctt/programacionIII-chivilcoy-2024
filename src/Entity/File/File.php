@@ -68,4 +68,9 @@ final readonly class File {
     {
         return $this->uploadUrl;
     }
+
+    public function isImage(): bool
+    {
+        return $this->type == "image/jpg" || $this->type == "image/png";
+    }
 }

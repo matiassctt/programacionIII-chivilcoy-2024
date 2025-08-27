@@ -20,7 +20,7 @@ final readonly class FileUploaderService {
     public function upload(string $name, string $fullPath, string $type, string $tmpName, int $size): File 
     {
         $file = File::create($name, $fullPath, $type, $tmpName, $size);
-        
+
         $file = $this->repository->upload($file);
         
         if ($file->uploadUrl() === null) {
